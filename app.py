@@ -16,6 +16,9 @@ from functools import reduce
 app = dash.Dash()
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+server = app.server
+app.title= 'Newsvendor Model'
+
 
 params = dict(demand_std = [200, 2000],
               service_loss_factor = [1,10],
