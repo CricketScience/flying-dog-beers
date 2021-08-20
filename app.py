@@ -46,9 +46,11 @@ sliders = reduce(list.__add__, [[html.Div(id = k + '-show'),
 app.layout = html.Div([
 	
 	html.H3('News Vendor Optimization Model'),
+	html.P("""The newsvendor model determines the optimal inventory position for 'single-stage' problems, i.e., there is no opportunity to restock during
+	the sales period (shelf-life) of the product."""),
+	    html.P("""You can use the sliders below to explore how the optimal inventory position changes in response to certain factors."""),
     html.P("""
 The following assumes that the expected demand is for 1000 products and our uncertainty takes a log-normal distribution."""),
-    html.P("""You can use the sliders below to explore how the optimal inventory position changes in response to certain factors."""),
     dcc.Markdown(
         """
 Demand STD
@@ -65,7 +67,7 @@ Transaction cost
 :  The fraction of the retail price that is ammortized across only the sold items (e.g., shipping).
 
 Salvage price
-: The amount we recoup of unsold inventory.  This can be negative to account for the cost of destruction.
+: The amount we recoup of unsold inventory less costs ammortized across only unsold items (e.g., destruction).
 """),
     html.Div(
             [
