@@ -168,6 +168,6 @@ def get_fig(demand_dist = stats.lognorm,
                   fillcolor="green", opacity=0.25, line_width=0)
     return fig
 
-if __name__ == '__main__' or True:
+if __name__ == '__main__':
 	app.run_server(debug = True)
         
