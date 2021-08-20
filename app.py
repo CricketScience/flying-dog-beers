@@ -2,6 +2,7 @@ import dash
 from dash.dependencies import Input, Output, State#, Event
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
 import plotly.express as px
 import pandas as pd
@@ -13,12 +14,11 @@ import sympy as sym
 from functools import reduce
 
 
-app = dash.Dash()
+app = dash.Dash(external_stylesheets=[dbc.themes.LUMEN])
 
 app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
-server = app.server
-app.title= 'Newsvendor Model'
-
+server = app.server # gunicorn magic
+app.title = 'Newsvendor Model'
 
 params = dict(demand_std = [200, 2000],
               service_loss_factor = [1,10],
@@ -46,11 +46,9 @@ sliders = reduce(list.__add__, [[html.Div(id = k + '-show'),
 app.layout = html.Div([
 	
 	html.H3('News Vendor Optimization Model'),
-	html.P("""The newsvendor model determines the optimal inventory position for 'single-stage' problems, i.e., there is no opportunity to restock during
-	the sales period (shelf-life) of the product."""),
-	    html.P("""You can use the sliders below to explore how the optimal inventory position changes in response to certain factors."""),
     html.P("""
 The following assumes that the expected demand is for 1000 products and our uncertainty takes a log-normal distribution."""),
+    html.P("""You can use the sliders below to explore how the optimal inventory position changes in response to certain factors."""),
     dcc.Markdown(
         """
 Demand STD
@@ -67,11 +65,13 @@ Transaction cost
 :  The fraction of the retail price that is ammortized across only the sold items (e.g., shipping).
 
 Salvage price
-: The amount we recoup of unsold inventory less costs ammortized across only unsold items (e.g., destruction).
+: The amount we recoup of unsold inventory.  This can be negative to account for the cost of destruction.
 """),
     html.Div(
-            [
-                dcc.Graph(id='test-figure', animate=False),
+            [   dbc.Spinner(children=[
+                dcc.Graph(id='test-figure', animate=False)], type="border",
+                            size='lg'
+                            ),
                 html.Hr()
 
 		] + sliders)])
@@ -168,6 +168,6 @@ def get_fig(demand_dist = stats.lognorm,
                   fillcolor="green", opacity=0.25, line_width=0)
     return fig
 
-if __name__ == '__main__':
+if __name__ == '__main__' or True:
 	app.run_server(debug = True)
         
