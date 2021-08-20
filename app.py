@@ -139,7 +139,7 @@ def get_fig(demand_dist = stats.lognorm,
 
     critical_quantile = (lost_sale_cost - variable_cost) / (lost_sale_cost - salvage_price)
     optimal_inventory = dist.ppf(critical_quantile)
-    probability_discretization = 1e-5
+    probability_discretization = 1e-4
     x = np.linspace(0, dist.isf(probability_discretization), int(probability_discretization**-1))
     mids = (x[1:] + x[:-1]) / 2
     probs = dist.cdf(x[1:]) - dist.cdf(x[:-1])
