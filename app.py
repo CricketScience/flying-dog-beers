@@ -45,7 +45,8 @@ sliders = reduce(list.__add__, [[html.Div(id = k + '-show'),
 
 app.layout = html.Div([
 	
-	html.H3('News Vendor Optimization Model'),
+	html.H2('News Vendor Optimization Model'),
+	html.H3("""Cricket Temple, Estee Lauder 2021"""),
     html.P("""
 The following assumes that the expected demand is for 1000 products and our uncertainty takes a log-normal distribution."""),
     html.P("""You can use the sliders below to explore how the optimal inventory position changes in response to certain factors."""),
